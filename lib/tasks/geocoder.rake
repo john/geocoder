@@ -6,7 +6,11 @@ namespace :geocode do
     klass = Object.const_get(class_name)
 
     klass.not_geocoded.each do |obj|
-      obj.geocode; obj.save
+      begin
+        obj.geocode; obj.save
+      rescue
+        puts "FAIL!: #{obj.inspect}"
+      end
     end
   end
 end
